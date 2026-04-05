@@ -14,7 +14,7 @@ The following table identifies the layers in ResNet-18 with the highest computat
 ---
 
 ## Arithmetic Intensity Calculation (Strict No-Reuse Model)
-For the most MAC-intensive layer, **Conv2d: 1-1**, we calculate the Arithmetic Intensity ($AI$) under the strict hardware constraint of **no on-chip cache and no data reuse**. In this scenario, every operand (weights and inputs) must be re-fetched from DRAM for every calculation.
+For the most MAC-intensive layer, **Conv2d: 1-1**, we calculate the Arithmetic Intensity ($AI$) under the strict hardware constraint of **no on-chip cache and no data reuse**. In this scenario, every operand (weights and inputs) must be re-fetched from DRAM for every calculation. No line buffers or on chip SRAM.
 
 ### 1. Layer Specifications (Conv2d: 1-1)
 * **Kernel:** $7 \times 7$ convolution, Stride 2.

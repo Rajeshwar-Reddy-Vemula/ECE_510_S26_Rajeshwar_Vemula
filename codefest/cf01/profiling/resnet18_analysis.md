@@ -13,29 +13,33 @@ The following table identifies the layers in ResNet-18 with the highest computat
 
 ---
 
-## Arithmetic Intensity Calculation (Strict No-Reuse Model)
-For the most MAC-intensive layer, **Conv2d: 1-1**, we calculate the Arithmetic Intensity ($AI$) under the strict hardware constraint of **no on-chip cache and no data reuse**. In this scenario, every operand (weights and inputs) must be re-fetched from DRAM for every calculation. No line buffers or on chip SRAM.
+## Arithmetic Intensity Calculation (Standard Compulsory Model)
+For the most MAC-intensive layer, **Conv2d: 1-1**, we calculate the Arithmetic Intensity ($AI$) based on the compulsory DRAM traffic. This assumes a model where the total volume of the input, weight, and output tensors are loaded from/written to DRAM once, representing the minimum data movement required for the operation.
+
+
 
 ### 1. Layer Specifications (Conv2d: 1-1)
 * **Kernel:** $7 \times 7$ convolution, Stride 2.
 * **Input Shape:** $[1, 3, 224, 224]$
 * **Output Shape:** $[1, 64, 112, 112]$ (Total pixels: $802,816$)
-* **Weights per Receptive Field:** $7 \times 7 \times 3 = 147$
+* **Total Parameters:** $9,408$
 
 ### 2. Total Operations (Work)
 Each MAC (Multiply-Accumulate) consists of 2 floating-point operations.
 $$\text{Total Ops} = 2 \times 118,013,952 = 236,027,904 \text{ FLOPs}$$
 
-### 3. Total DRAM Traffic (No-Reuse Constraint)
-Under strict no-reuse, we calculate the bytes moved for every spatial application of the filters. Each element is 4 bytes (FP32).
+### 3. Total DRAM Traffic (Compulsory Traffic)
+We calculate the bytes moved for the entire tensor volumes. Each element is 4 bytes (FP32).
 
-* **Weight Traffic:** $802,816 \text{ outputs} \times 147 \text{ weights} \times 4 \text{ bytes} = 472,055,808 \text{ Bytes}$
-* **Input Traffic:** $802,816 \text{ outputs} \times 147 \text{ inputs} \times 4 \text{ bytes} = 472,055,808 \text{ Bytes}$
-* **Output Traffic:** $802,816 \text{ outputs} \times 1 \text{ pixel} \times 4 \text{ bytes} = 3,211,264 \text{ Bytes}$
+* **Input Bytes:** $3 \times 224 \times 224 \times 4 = 602,112 \text{ Bytes}$
+* **Weight Bytes:** $64 \times 3 \times 7 \times 7 \times 4 = 37,632 \text{ Bytes}$
+* **Output Bytes:** $64 \times 112 \times 112 \times 4 = 3,211,264 \text{ Bytes}$
 
-$$\text{Total Bytes} = 472,055,808 + 472,055,808 + 3,211,264 = 947,322,880 \text{ Bytes}$$
+$$\text{Total Bytes} = 602,112 + 37,632 + 3,211,264 = 3,851,008 \text{ Bytes}$$
 
 ### 4. Final Arithmetic Intensity Result
-$$AI = \frac{\text{Total Operations}}{\text{Total Bytes}} = \frac{236,027,904}{947,322,880} \approx \mathbf{0.249 \text{ Ops/Byte}}$$
+$$AI = \frac{\text{Total Operations}}{\text{Total Bytes}} = \frac{236,027,904}{3,851,008} \approx \mathbf{61.29 \text{ FLOPs/Byte}}$$
 
-**Conclusion:** With an $AI$ of $\approx 0.25$, this layer is heavily **Memory-Bound**. Without on-chip SRAM to reuse weights or input pixels, the hardware spends the vast majority of its time fetching redundant data from DRAM rather than performing computation.
+
+
+**Conclusion:** With an $AI$ of $\approx 61.29$, this layer is computationally dense relative to its data footprint. The high arithmetic intensity suggests that on most modern hardware, this layer will be **Compute-Bound**, provided the hardware architecture effectively manages the internal reuse of weights and input pixels to stay within the compulsory traffic limits.

@@ -13,33 +13,41 @@ The following table identifies the layers in ResNet-18 with the highest computat
 
 ---
 
-## Arithmetic Intensity Calculation (Standard Compulsory Model)
-For the most MAC-intensive layer, **Conv2d: 1-1**, we calculate the Arithmetic Intensity ($AI$) based on the compulsory DRAM traffic. This assumes a model where the total volume of the input, weight, and output tensors are loaded from/written to DRAM once, representing the minimum data movement required for the operation.
+## Arithmetic Intensity Analysis: Conv2d 1-1
+This analysis characterizes the operational efficiency of the most computationally expensive layer in the network.
+
+### 1. Hardware Assumptions (Weight-Reloading Model)
+To determine the lower bound of efficiency, we assume a **Zero Weight-Reuse** hardware model. The specific architectural constraints are as follows:
+* **No Weight Cache:** The hardware lacks a register file or SRAM to store the filter kernels. Every time the convolution sliding window moves to a new spatial location, the entire $7 \times 7 \times 3$ filter must be re-fetched from DRAM.
+* **Perfect Activation Reuse:** The hardware possesses enough internal buffering (e.g., a Line Buffer) to load the input image into the chip exactly once and write the output feature map to DRAM exactly once.
 
 
 
-### 1. Layer Specifications (Conv2d: 1-1)
-* **Kernel:** $7 \times 7$ convolution, Stride 2.
-* **Input Shape:** $[1, 3, 224, 224]$
-* **Output Shape:** $[1, 64, 112, 112]$ (Total pixels: $802,816$)
-* **Total Parameters:** $9,408$
+### 2. Calculation of Work (FLOPs)
+Each Multiply-Accumulate (MAC) operation consists of one multiplication and one addition.
+* **Total MACs:** $118,013,952$
+* **Total Operations:** $2 \times 118,013,952 = \mathbf{236,027,904 \text{ FLOPs}}$
 
-### 2. Total Operations (Work)
-Each MAC (Multiply-Accumulate) consists of 2 floating-point operations.
-$$\text{Total Ops} = 2 \times 118,013,952 = 236,027,904 \text{ FLOPs}$$
+### 3. Calculation of Memory Traffic (Bytes)
+Data movement is calculated based on FP32 precision (4 bytes per element).
 
-### 3. Total DRAM Traffic (Compulsory Traffic)
-We calculate the bytes moved for the entire tensor volumes. Each element is 4 bytes (FP32).
+* **Weight Traffic (Zero Reuse):**
+  Since weights are re-loaded for every MAC operation:
+  $Traffic_{weights} = 118,013,952 \text{ MACs} \times 4 \text{ bytes} = 472,055,808 \text{ Bytes}$
 
-* **Input Bytes:** $3 \times 224 \times 224 \times 4 = 602,112 \text{ Bytes}$
-* **Weight Bytes:** $64 \times 3 \times 7 \times 7 \times 4 = 37,632 \text{ Bytes}$
-* **Output Bytes:** $64 \times 112 \times 112 \times 4 = 3,211,264 \text{ Bytes}$
+* **Activation Traffic (Compulsory):**
+  Input and Output tensors are moved across the DRAM bus exactly once:
+  $Input \text{ Elements} = 3 \times 224 \times 224 = 150,528$
+  $Output \text{ Elements} = 64 \times 112 \times 112 = 802,816$
+  $Traffic_{activations} = (150,528 + 802,816) \times 4 \text{ bytes} = 3,813,376 \text{ Bytes}$
 
-$$\text{Total Bytes} = 602,112 + 37,632 + 3,211,264 = 3,851,008 \text{ Bytes}$$
+* **Total DRAM Traffic:**
+  $Total \text{ Bytes} = 472,055,808 + 3,813,376 = \mathbf{475,869,184 \text{ Bytes}}$
 
-### 4. Final Arithmetic Intensity Result
-$$AI = \frac{\text{Total Operations}}{\text{Total Bytes}} = \frac{236,027,904}{3,851,008} \approx \mathbf{61.29 \text{ FLOPs/Byte}}$$
+### 4. Final Arithmetic Intensity ($AI$)
+$$AI = \frac{\text{Total Operations}}{\text{Total Bytes}} = \frac{236,027,904}{475,869,184} \approx \mathbf{0.496 \text{ FLOPs/Byte}}$$
 
+---
 
-
-**Conclusion:** With an $AI$ of $\approx 61.29$, this layer is computationally dense relative to its data footprint. The high arithmetic intensity suggests that on most modern hardware, this layer will be **Compute-Bound**, provided the hardware architecture effectively manages the internal reuse of weights and input pixels to stay within the compulsory traffic limits.
+## Conclusion
+Under the assumption that weights cannot be reused on-chip, the Arithmetic Intensity collapses from the algorithmic peak of ~61.3 down to **0.496**. This result demonstrates that the layer is strictly **Memory-Bound** in this hardware configuration. To achieve higher performance, the architecture must implement a weight-stationary dataflow or a weight cache to eliminate the redundant 472 MB of DRAM traffic.

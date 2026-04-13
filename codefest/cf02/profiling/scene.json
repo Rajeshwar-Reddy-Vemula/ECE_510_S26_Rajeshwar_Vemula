@@ -1,0 +1,192 @@
+{
+  "camera": {
+    "position": [0.0, 0.8, -4.0],
+    "look_at":  [0.0, 0.0,  0.0],
+    "width":    400,
+    "height":   300
+  },
+
+  "lights": [
+    {
+      "position": [4.0, 8.0, -6.0],
+      "color":    [1.0, 0.98, 0.92]
+    }
+  ],
+
+  "objects": [
+
+    {
+      "comment":    "checkerboard ground plane",
+      "type":       "plane",
+      "position":   [0.0, -0.5, 0.0],
+      "normal":     [0.0,  1.0, 0.0],
+      "pattern":    "checkerboard",
+      "color_0":    [0.9, 0.9, 0.9],
+      "color_1":    [0.2, 0.2, 0.25],
+      "scale":      1.5,
+      "diffuse_c":  0.8,
+      "specular_c": 0.3,
+      "reflection": 0.15
+    },
+
+    {
+      "comment":    "tall building left",
+      "type":       "box",
+      "center":     [-2.2, 0.5, 2.0],
+      "half_size":  [0.5, 1.0, 0.5],
+      "color":      [0.55, 0.65, 0.75],
+      "diffuse_c":  0.7,
+      "specular_c": 0.6,
+      "reflection": 0.2
+    },
+
+    {
+      "comment":    "wide building right",
+      "type":       "box",
+      "center":     [2.0, 0.2, 2.5],
+      "half_size":  [0.7, 0.7, 0.6],
+      "color":      [0.75, 0.6, 0.5],
+      "diffuse_c":  0.7,
+      "specular_c": 0.4,
+      "reflection": 0.1
+    },
+
+    {
+      "comment":    "small building back",
+      "type":       "box",
+      "center":     [0.0, 0.0, 3.5],
+      "half_size":  [0.6, 0.5, 0.4],
+      "color":      [0.6, 0.7, 0.55],
+      "diffuse_c":  0.7,
+      "specular_c": 0.3,
+      "reflection": 0.05
+    },
+
+    {
+      "comment":    "red pillar left",
+      "type":       "cylinder",
+      "position":   [-1.0, 0.0, 1.0],
+      "radius":     0.12,
+      "half_height":0.5,
+      "color":      [0.8, 0.15, 0.1],
+      "diffuse_c":  0.7,
+      "specular_c": 0.8,
+      "reflection": 0.15
+    },
+
+    {
+      "comment":    "red pillar right",
+      "type":       "cylinder",
+      "position":   [1.0, 0.0, 1.0],
+      "radius":     0.12,
+      "half_height":0.5,
+      "color":      [0.8, 0.15, 0.1],
+      "diffuse_c":  0.7,
+      "specular_c": 0.8,
+      "reflection": 0.15
+    },
+
+    {
+      "comment":    "gold sphere on left pillar",
+      "type":       "sphere",
+      "position":   [-1.0, 0.65, 1.0],
+      "radius":     0.15,
+      "color":      [1.0, 0.8, 0.1],
+      "diffuse_c":  0.6,
+      "specular_c": 1.0,
+      "reflection": 0.5
+    },
+
+    {
+      "comment":    "gold sphere on right pillar",
+      "type":       "sphere",
+      "position":   [1.0, 0.65, 1.0],
+      "radius":     0.15,
+      "color":      [1.0, 0.8, 0.1],
+      "diffuse_c":  0.6,
+      "specular_c": 1.0,
+      "reflection": 0.5
+    },
+
+    {
+      "comment":    "blue reflective sphere centre",
+      "type":       "sphere",
+      "position":   [0.0, 0.0, 1.5],
+      "radius":     0.45,
+      "color":      [0.1, 0.3, 0.9],
+      "diffuse_c":  0.5,
+      "specular_c": 1.0,
+      "reflection": 0.7
+    },
+
+    {
+      "comment":    "fountain disk base",
+      "type":       "disk",
+      "center":     [0.0, -0.48, 1.5],
+      "normal":     [0.0,  1.0,  0.0],
+      "radius":     0.7,
+      "color":      [0.7, 0.75, 0.8],
+      "diffuse_c":  0.6,
+      "specular_c": 0.5,
+      "reflection": 0.3
+    },
+
+    {
+      "comment":    "stripe-patterned wall back left",
+      "type":       "box",
+      "center":     [-3.0, 0.0, 3.0],
+      "half_size":  [0.08, 0.8, 1.2],
+      "pattern":    "stripe",
+      "color_0":    [0.9, 0.85, 0.7],
+      "color_1":    [0.4, 0.35, 0.3],
+      "axis":       1,
+      "scale":      3.0,
+      "diffuse_c":  0.8,
+      "specular_c": 0.2,
+      "reflection": 0.05
+    },
+
+    {
+      "comment":    "small orange sphere decoration",
+      "type":       "sphere",
+      "position":   [-1.8, -0.2, 1.2],
+      "radius":     0.18,
+      "color":      [1.0, 0.45, 0.1],
+      "diffuse_c":  0.8,
+      "specular_c": 0.5,
+      "reflection": 0.2
+    },
+
+    {
+      "comment":    "purple cylinder tower",
+      "type":       "cylinder",
+      "position":   [2.8, 0.2, 1.5],
+      "radius":     0.22,
+      "half_height":0.7,
+      "color":      [0.5, 0.2, 0.7],
+      "diffuse_c":  0.7,
+      "specular_c": 0.6,
+      "reflection": 0.25
+    },
+
+    {
+      "comment":    "silver sphere on purple tower",
+      "type":       "sphere",
+      "position":   [2.8, 1.05, 1.5],
+      "radius":     0.2,
+      "color":      [0.85, 0.85, 0.9],
+      "diffuse_c":  0.4,
+      "specular_c": 1.0,
+      "reflection": 0.75
+    }
+
+  ],
+
+  "render": {
+    "depth_max":  5,
+    "ambient":    0.06,
+    "diffuse_c":  1.0,
+    "specular_c": 1.0,
+    "specular_k": 60
+  }
+}

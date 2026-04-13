@@ -19,7 +19,7 @@
 | Frame rate | 0.072 fps |
 | Intersection tests per frame | 7,039,879 |
 | Intersection throughput | 503,000 tests/sec |
-| Total FLOPs per frame (estimated) | 220 MFLOPs |
+| Total FLOPs per frame (analytical) | 220 MFLOPs |
 | Compute throughput | 15.7 MFLOPs/sec |
 
 Throughput breakdown by kernel (per frame):

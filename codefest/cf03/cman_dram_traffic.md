@@ -33,11 +33,11 @@ Total DRAM traffic (no reuse, each access = 4 bytes, plus one write of $N^2$ ele
 
 ## 2. Tiled Loop (tile size T = 8)
 
-### Model A: Traditional tiling (T-times reuse per tile load)
+### Traditional tiling (T-times reuse per tile load)
 Each element is loaded $N/T = 4$ times from DRAM, plus one write of C:
 - **Total Bytes ($T_{tiled\_trad}$):** $(2N^3/T + N^2) \times 4 = 36,864 \text{ bytes} \approx 36 \text{ KB}$
 
-### Model B: Ideal shared memory reuse (each element loaded once)
+### Ideal shared memory reuse (each element loaded once)
 With sufficient on-chip memory, each element of A, B, and C is loaded/stored exactly once:
 - **Total Bytes ($T_{tiled\_ideal}$):** $3N^2 \times 4 = 12,288 \text{ bytes} \approx 12 \text{ KB}$
 
@@ -47,7 +47,7 @@ With sufficient on-chip memory, each element of A, B, and C is loaded/stored exa
 
 $$\frac{T_{naive}}{T_{tiled\_ideal}} \approx \frac{2N^3}{3N^2} \approx \frac{2N}{3}$$
 
-**One-sentence explanation:** In the naive loop, each element is loaded from DRAM $N$ times, while ideal tiling loads each element once and reuses it on-chip, reducing DRAM traffic by a factor proportional to $N$.
+**Explanation:** In the naive loop, each element is loaded from DRAM $N$ times, while ideal tiling loads each element once and reuses it on-chip, reducing DRAM traffic by a factor proportional to $N$.
 
 ---
 

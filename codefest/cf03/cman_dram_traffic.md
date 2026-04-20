@@ -132,7 +132,7 @@ Tiled (Ideal Reuse): Memory Time = 12,288 / 320 GB/s = 38.4 ns
 | Memory Time (T_mem) | 831.4 ns | 115.2 ns | 38.4 ns |
 | Compute Time (T_comp) | 6.55 ns | 6.55 ns | 6.55 ns |
 | Execution Time (T_mem + T_comp) | 837.95 ns | 121.75 ns | 44.95 ns |
-| Classification | Memory-Bound | Memory-Bound | Memory-Bound |
+| Classification | Memory-Bound | Memory-Bound | Memory-Bound close to ridge|
 
 **Final Classification:** All three kernels are Memory-bound because their Arithmetic Intensities (0.246 → 5.33) are significantly lower than the system ridge point of 31.25. Even with ideal reuse, the small matrix size (N=32) does not provide enough data reuse to saturate the 10 TFLOPS compute engine. Performance is strictly limited by how fast the 320 GB/s bus can feed the cores.
 

@@ -50,6 +50,8 @@ With shared memory tiling, each element of A and B is loaded from DRAM **exactly
 - B loads = N² = 32² = 1,024 elements
 - **Total loads = 2N² = 2,048 elements**
 
+- DRAM traffic = 2048 x 4 = 8192
+
 ```
 T_tiled = 2N² × 4 = 2,048 × 4 = 8,192 bytes = 8 KB
 ```
@@ -167,13 +169,4 @@ t_mem_tiled_traditional = 32,768 / (320 × 10⁹) = 102.4 ns
 | Tiled (professor model) | 25.6 ns     | 6.55 ns      | 3.9×                | **Memory-bound (near ridge)** |
 | Tiled (traditional)     | 102.4 ns    | 6.55 ns      | 15.6×               | **Memory-bound**              |
 
-### Why the two models differ
 
-| Model                | Assumes                                      | Per-element loads | Total traffic | Ratio |
-|----------------------|----------------------------------------------|-------------------|---------------|-------|
-| Professor's model    | Each element loaded once (full matrix cached) | 1                 | 2N² × 4       | N = 32 |
-| Traditional model    | Each tile reloaded per outer loop iteration   | N/T               | 2N³/T × 4     | T = 8  |
-
-The professor's model represents the **idealized best case** where on-chip memory (shared memory + caches) is large enough to hold all needed data so each element is fetched from DRAM exactly once. The traditional model represents the **realistic tiling case** where only T×T tiles fit in shared memory at a time, requiring each element to be reloaded N/T times as different output tiles need it.
-
-For N = 32 with T = 8, the matrix is small enough (3 × 32² × 4 = 12 KB) that the idealized model is actually achievable — the entire working set fits in shared memory or L1 cache of a modern GPU.

@@ -1,0 +1,6 @@
+CUDA GPU detected: Tesla T4
+Model moved to: cuda:0
+Input tensor shape: torch.Size([16, 4])
+Input tensor device: cuda:0
+Output tensor shape: torch.Size([16, 1])
+Output tensor device: cuda:0

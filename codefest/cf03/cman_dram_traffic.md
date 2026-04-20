@@ -105,22 +105,35 @@ For large N this simplifies to:
 ## 4. Arithmetic Intensity & Execution Time
 
 ### System Ridge Point
-To determine if we are limited by math or memory, we calculate the **Ridge Point** ($I_{rp}$):
 
-$$I_{rp} = \frac{\text{Peak Compute}}{\text{Peak Bandwidth}} = \frac{10 \times 10^{12} \text{ FLOPS}}{320 \times 10^9 \text{ B/s}} = 31.25 \text{ FLOPs/byte}$$
+To determine if we are limited by math or memory, we calculate the Ridge Point (I_rp):
 
-
+```
+I_rp = Peak Compute / Peak Bandwidth = 10 × 10¹² FLOPS / 320 × 10⁹ B/s = 31.25 FLOPs/byte
+```
 
 ### Kernel Classification
-**Total Work:** $2 \times N^3 = 65,536 \text{ FLOPs}$  
-**Compute Time ($T_{comp}$):** $65,536 / 10 \text{ TFLOPS} = 6.55 \text{ ns}$
+
+```
+Total Work = 2 × N³ = 65,536 FLOPs
+Compute Time (T_comp) = 65,536 / 10 TFLOPS = 6.55 ns
+```
+
+```
+Naive:              Memory Time = 266,240 / 320 GB/s = 831.4 ns
+Tiled (Traditional): Memory Time = 36,864 / 320 GB/s = 115.2 ns
+Tiled (Ideal Reuse): Memory Time = 12,288 / 320 GB/s = 38.4 ns
+```
 
 | Metric | Naive Triple Loop | Tiled (Traditional) | Tiled (Ideal Reuse) |
-| :--- | :--- | :--- | :--- |
-| **Total Bytes** | 266,240 | 36,864 | 12,288 |
-| **Arithmetic Intensity** | **0.246 FLOPs/B** | **1.77 FLOPs/B** | **5.33 FLOPs/B** |
-| **Memory Time ($T_{mem}$)** | 832.0 ns | 115.2 ns | 38.4 ns |
-| **Classification** | **Memory-Bound** | **Memory-Bound** | **Memory-Bound** |
+|---|---|---|---|
+| Total Bytes | 266,240 | 36,864 | 12,288 |
+| Arithmetic Intensity | 0.246 FLOPs/B | 1.78 FLOPs/B | 5.33 FLOPs/B |
+| Memory Time (T_mem) | 831.4 ns | 115.2 ns | 38.4 ns |
+| Compute Time (T_comp) | 6.55 ns | 6.55 ns | 6.55 ns |
+| Execution Time (T_mem + T_comp) | 837.95 ns | 121.75 ns | 44.95 ns |
+| Classification | Memory-Bound | Memory-Bound | Memory-Bound |
 
-**Final Classification:**
-All three kernels are **Memory-bound** because their Arithmetic Intensities ($0.246 \to 5.33$) are significantly lower than the system ridge point of **31.25**. Even with ideal reuse, the small matrix size ($N=32$) does not provide enough data reuse to saturate the 10 TFLOPS compute engine. Performance is strictly limited by how fast the 320 GB/s bus can feed the cores.
+**Final Classification:** All three kernels are Memory-bound because their Arithmetic Intensities (0.246 → 5.33) are significantly lower than the system ridge point of 31.25. Even with ideal reuse, the small matrix size (N=32) does not provide enough data reuse to saturate the 10 TFLOPS compute engine. Performance is strictly limited by how fast the 320 GB/s bus can feed the cores.
+
+

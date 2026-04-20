@@ -44,7 +44,7 @@ T_naive = (2N³ + N²) × 4 = (65,536 + 1,024) × 4 = 266,240 bytes ≈ 260 KB
 
 ## 2. Tiled Loop (tile size T = 8)
 
-### Model A: Traditional tiling (T-times reuse per tile load)
+### Traditional tiling (T-times reuse per tile load)
 
 ```
 for i0 in 0..N/T:       # 4 tile rows
@@ -66,7 +66,7 @@ Each element is loaded **N/T = 4 times** from DRAM, plus one write of C:
 T_tiled_traditional = (2N³/T + N²) × 4 = (8,192 + 1,024) × 4 = 36,864 bytes ≈ 36 KB
 ```
 
-### Model B: Ideal shared memory reuse (each element loaded once)
+### Ideal shared memory reuse (each element loaded once)
 
 With sufficient on-chip memory, each element of A, B, and C is loaded/stored exactly once:
 
@@ -78,7 +78,7 @@ T_tiled_reused = 3N² × 4 = 3 × 1,024 × 4 = 12,288 bytes = 12 KB
 
 ## 3. Traffic Ratio
 
-### Naive vs. Traditional Tiled (Model A)
+### Naive vs. Traditional Tiled 
 
 ```
 T_naive / T_tiled_traditional = (2N³ + N²) / (2N³/T + N²) ≈ 2N³ / (2N³/T) = T = 8
@@ -86,7 +86,7 @@ T_naive / T_tiled_traditional = (2N³ + N²) / (2N³/T + N²) ≈ 2N³ / (2N³/T
 
 The traditional tiling reduces traffic by a factor of **T = 8**. Each element is reused T times within a tile, reducing per-element DRAM loads from N to N/T.
 
-### Naive vs. Ideal Reuse (Model B)
+### Naive vs. Ideal Reuse 
 
 ```
 T_naive / T_tiled_reused = (2N³ + N²) / (3N²) ≈ 2N³ / 3N² ≈ 2N/3

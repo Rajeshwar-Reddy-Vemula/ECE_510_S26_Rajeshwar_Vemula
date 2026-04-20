@@ -51,6 +51,19 @@ $$\frac{T_{naive}}{T_{tiled\_ideal}} \approx \frac{2N^3}{3N^2} \approx \frac{2N}
 
 ---
 
+## 3. Traffic Ratio
+Naive vs. Ideal Reuse
+T_naive / T_tiled_reused = (2N³ + N²) / (3N²) ≈ 2N³ / 3N² ≈ 2N/3
+For large N this simplifies to:
+≈ N (for the dominant read traffic: 2N³ / 2N² = N = 32)
+
+traditional tiled: 
+T_naive / T_tiled_traditional = (2N³ + N²) / (2N³/T + N²) ≈ 2N³ / (2N³/T) = T = 8
+
+
+Explanation: In the naive loop each element is loaded from DRAM N times (once per iteration of the non-participating index), while shared memory tiling loads each element exactly once from DRAM and reuses it on-chip, eliminating all redundant loads and giving a traffic ratio of N.
+---
+
 ## 4. Arithmetic Intensity & Execution Time
 
 ### System Ridge Point

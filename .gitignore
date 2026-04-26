@@ -1,2 +1,3 @@
 .venv/
 __pycache__/
+codefest/cf04/hdl/sim_*

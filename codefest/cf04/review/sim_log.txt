@@ -1,0 +1,18 @@
+//iverilog -g2012 -o mac_tb mac_correct.v mac_tb.v && vvp mac_tb
+//icarus verilog simulation output for mac_correct.v
+
+--- a=3, b=4 (3 cycles) ---
+cycle 1 | a=   3 b=   4 | product=    12 | expected=        12 | actual=        12 | PASS
+cycle 2 | a=   3 b=   4 | product=    12 | expected=        24 | actual=        24 | PASS
+cycle 3 | a=   3 b=   4 | product=    12 | expected=        36 | actual=        36 | PASS
+
+--- assert rst ---
+cycle 4 | rst=1             | expected=         0 | actual=         0 | PASS
+
+--- a=-5, b=2 (2 cycles) ---
+cycle 5 | a=  -5 b=   2 | product=   -10 | expected=       -10 | actual=       -10 | PASS
+cycle 6 | a=  -5 b=   2 | product=   -10 | expected=       -20 | actual=       -20 | PASS
+
+--- Result: ALL TESTS PASSED ---
+
+mac_tb.v:69: $finish called at 76000 (1ps)

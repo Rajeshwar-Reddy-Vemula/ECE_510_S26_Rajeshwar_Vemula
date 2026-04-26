@@ -1,0 +1,7 @@
+<testsuites name="results">
+  <testsuite name="all" package="all">
+    <property name="random_seed" value="1777244478" />
+    <testcase name="test_mac_basic" classname="test_mac" file="/home/rajes/ECE_510_S26_Rajeshwar_Vemula/codefest/cf04/cocotb_mac/test_mac.py" lineno="15" time="0.0017750263214111328" sim_time_ns="100.0" ratio_time="56337.19274680994" />
+    <testcase name="test_mac_overflow" classname="test_mac" file="/home/rajes/ECE_510_S26_Rajeshwar_Vemula/codefest/cf04/cocotb_mac/test_mac.py" lineno="63" time="6.3912787437438965" sim_time_ns="1331480.0" ratio_time="208327.63729845444" />
+  </testsuite>
+</testsuites>

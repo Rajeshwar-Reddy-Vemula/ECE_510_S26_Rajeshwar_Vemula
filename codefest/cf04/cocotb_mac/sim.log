@@ -1,0 +1,40 @@
+rm -f results.xml
+"make" -f Makefile results.xml
+make[1]: Entering directory '/home/rajes/ECE_510_S26_Rajeshwar_Vemula/codefest/cf04/cocotb_mac'
+/home/rajes/ECE_510_S26_Rajeshwar_Vemula/venv/lib/python3.12/site-packages/cocotb_tools/makefiles/simulators/Makefile.icarus:66: Using MODULE is deprecated, please use COCOTB_TEST_MODULES instead.
+rm -f results.xml
+COCOTB_TEST_MODULES=test_mac COCOTB_TESTCASE= COCOTB_TEST_FILTER= COCOTB_TOPLEVEL=mac TOPLEVEL_LANG=verilog \
+         /usr/bin/vvp -M /home/rajes/ECE_510_S26_Rajeshwar_Vemula/venv/lib/python3.12/site-packages/cocotb/libs -m libcocotbvpi_icarus   sim_build/sim.vvp   
+     -.--ns INFO     gpi                                ..mbed/gpi_embed.cpp:93   in _embed_init_python              Using Python 3.12.4 interpreter at /home/rajes/ECE_510_S26_Rajeshwar_Vemula/venv/bin/python3
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:79   in gpi_print_registered_impl       VPI registered
+     0.00ns INFO     cocotb                             Running on Icarus Verilog version 12.0 (stable)
+     0.00ns INFO     cocotb                             Seeding Python random module with 1777244478
+     0.00ns INFO     cocotb                             Initialized cocotb v2.0.1 from /home/rajes/ECE_510_S26_Rajeshwar_Vemula/venv/lib/python3.12/site-packages/cocotb
+     0.00ns INFO     cocotb.regression                  pytest not found, install it to enable better AssertionError messages
+     0.00ns INFO     cocotb                             Running tests
+     0.00ns INFO     cocotb.regression                  running test_mac.test_mac_basic (1/2)
+                                                            Basic MAC test: [a=3,b=4]x3, rst, [a=-5,b=2]x2
+    30.00ns INFO     cocotb.mac                         cycle 1 | a=3 b=4 | expected=12 | actual=12 | PASS
+    40.00ns INFO     cocotb.mac                         cycle 2 | a=3 b=4 | expected=24 | actual=24 | PASS
+    50.00ns INFO     cocotb.mac                         cycle 3 | a=3 b=4 | expected=36 | actual=36 | PASS
+    70.00ns INFO     cocotb.mac                         after rst | expected=0 | actual=0 | PASS
+    90.00ns INFO     cocotb.mac                         cycle 1 | a=-5 b=2 | expected=-10 | actual=-10 | PASS
+   100.00ns INFO     cocotb.mac                         cycle 2 | a=-5 b=2 | expected=-20 | actual=-20 | PASS
+   100.00ns INFO     cocotb.mac                         test_mac_basic: ALL ASSERTIONS PASSED
+   100.00ns INFO     cocotb.regression                  test_mac.test_mac_basic passed
+   100.00ns INFO     cocotb.regression                  running test_mac.test_mac_overflow (2/2)
+                                                            Overflow test: a=127 b=127 until 32-bit signed overflow
+1331580.00ns INFO     cocotb.mac                         Overflow at cycle 133145 | product=16129 | expected_no_wrap=2147495705 | actual=-2147471591
+1331580.00ns INFO     cocotb.mac                         BEHAVIOR: WRAPS cleanly (two's complement) to -2147471591
+1331580.00ns INFO     cocotb.mac                         Overflow summary: cycle=133145 value=-2147471591 MAX=2147483647 MIN=-2147483648 python_wrap=-2147471591
+1331580.00ns INFO     cocotb.mac                         test_mac_overflow: COMPLETE
+1331580.00ns INFO     cocotb.regression                  test_mac.test_mac_overflow passed
+1331580.00ns INFO     cocotb.regression                  **************************************************************************************
+                                                         ** TEST                          STATUS  SIM TIME (ns)  REAL TIME (s)  RATIO (ns/s) **
+                                                         **************************************************************************************
+                                                         ** test_mac.test_mac_basic        PASS         100.00           0.00      56337.19  **
+                                                         ** test_mac.test_mac_overflow     PASS     1331480.00           6.39     208327.64  **
+                                                         **************************************************************************************
+                                                         ** TESTS=2 PASS=2 FAIL=0 SKIP=0            1331580.00           6.40     208210.22  **
+                                                         **************************************************************************************
+make[1]: Leaving directory '/home/rajes/ECE_510_S26_Rajeshwar_Vemula/codefest/cf04/cocotb_mac'

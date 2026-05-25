@@ -1,0 +1,23 @@
+
+--- TEST 1: Ray hits blue sphere ---
+PASS  TEST1 — done asserted
+PASS  TEST1 — hit_valid=1 (ray hits sphere)
+PASS  TEST1 — hit_distance=0x0238 (2.2188) expected 0x0238 (2.2188)
+
+--- TEST 2: Ray misses sphere ---
+PASS  TEST2 — done asserted
+PASS  TEST2 — hit_valid=0 (ray misses sphere)
+
+--- TEST 3: Reset during computation ---
+PASS  TEST3 — done not asserted after reset (FSM returned to IDLE)
+
+--- TEST 4: Back-to-back operation after reset ---
+PASS  TEST4 — hit_valid=1 after reuse
+PASS  TEST4 — hit_distance=0x0238 matches TEST1 result
+
+==============================
+RESULTS: 8 PASS  0 FAIL
+ALL TESTS PASSED
+==============================
+
+project/m2/tb/tb_compute_core.sv:284: $finish called at 896000 (1ps)

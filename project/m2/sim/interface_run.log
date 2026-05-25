@@ -1,0 +1,28 @@
+
+--- TEST 1: Write ray and sphere parameters ---
+PASS  TEST1 — 10 AXI4-Lite write transactions completed
+
+--- TEST 2: Read back written registers ---
+PASS  TEST2 — RAY_OY=0x005a expected 0x005A
+PASS  TEST2 — RAY_OZ=0xff00 expected 0xFF00
+PASS  TEST2 — RAY_DZ=0x0100 expected 0x0100
+PASS  TEST2 — SPH_CZ=0x0180 expected 0x0180
+PASS  TEST2 — SPH_R =0x0073 expected 0x0073
+
+--- TEST 3: Trigger computation and read result ---
+PASS  TEST3 — CTRL write transaction completed
+PASS  TEST3 — CTRL.done=1 after 9 polls
+PASS  TEST3 — RESULT_T=0x0238 (2.2188) expected 0x0238 (2.2188)
+PASS  TEST3 — BRESP=OKAY
+PASS  TEST3 — RRESP=OKAY
+
+--- TEST 4: Reset clears state ---
+PASS  TEST4 — RAY_OY=0x0000 after reset (expected 0x0000)
+PASS  TEST4 — RESULT_T=0x0000 after reset (expected 0x0000)
+
+==============================
+RESULTS: 13 PASS  0 FAIL
+ALL TESTS PASSED
+==============================
+
+project/m2/tb/tb_interface.sv:242: $finish called at 1065000 (1ps)

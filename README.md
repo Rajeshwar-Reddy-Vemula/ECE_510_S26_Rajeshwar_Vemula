@@ -7,6 +7,10 @@ Ray-Object Intersection Accelerator
 **Course:** ECE 510 HW4AI Spring 2026  
 **Date:** June 7, 2026
 
+Final Devliverable : (project/m4)
+Design Justification Report : (project/m4/report/design_justification.pdf)
+M4 README : (project/m4/README.md)
+
 This repository contains the complete design, verification, synthesis, and benchmarking package for a fixed-function ray-sphere intersection accelerator targeting the sky130_fd_sc_hd standard cell library. The accelerator implements the quadratic ray-sphere intersection formula in Q8.8 fixed-point arithmetic with an AXI4-Lite/Stream interface, synthesized at 40 MHz with clean timing closure at all PVT corners. It delivers 3.3× throughput improvement and 1,257× energy reduction compared to the Python software baseline, targeting embedded ADAS (LiDAR simulation) applications. The Milestone 4 submission, which is the final deliverable package, is located at [project/m4/README.md](project/m4/README.md). The design justification report covering all nine required sections (problem, roofline, precision, dataflow, interface, verification, synthesis, benchmarks, and lessons learned) is at [project/m4/report/design_justification.pdf](project/m4/report/design_justification.pdf).
 
 ## Repository Structure

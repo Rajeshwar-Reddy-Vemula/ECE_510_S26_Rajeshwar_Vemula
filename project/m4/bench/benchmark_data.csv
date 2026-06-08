@@ -1,0 +1,33 @@
+metric,software_baseline,hardware_accelerator,unit,source
+clock_frequency,N/A,40,MHz,OpenLane synthesis 25ns period closes all corners
+cycles_per_test,N/A,24,cycles,VCS simulation cycle count (M4 pipelined)
+tests_per_second,500835,1666667,tests/sec,cProfile 30 frames (SW) / simulation (HW)
+flops_per_test,39,39,FLOPs,3 dots(15) + disc(5) + sqrt(16) + t(3)
+mflops,19.53,65.00,MFLOP/s,tests_per_sec * flops_per_test
+bytes_per_test_no_reuse,24,24,bytes,10 inputs * 2B + 2 outputs * 2B
+bytes_per_test_with_reuse,24,8,bytes,ray dir only: 3*2B in + 1*2B out
+arithmetic_intensity_no_reuse,1.62,1.62,FLOP/byte,flops / bytes
+arithmetic_intensity_with_reuse,1.62,4.88,FLOP/byte,flops / bytes (register reuse)
+time_per_test,2.00,0.60,microseconds,1 / tests_per_sec
+speedup_per_test,1.0,3.3,ratio,HW / SW tests_per_sec
+objects_per_pixel,14,14,objects,scene_city.json
+cycles_per_pixel,N/A,336,cycles,24 * 14
+time_per_pixel,27.95,8.40,microseconds,objects * time_per_test
+pixels_per_second,35774,119048,pixels/sec,1 / time_per_pixel
+frame_resolution,120000,120000,pixels,400 * 300
+power,15.0,0.0396,watts,TDP desktop (SW) / OpenLane nom_tt (HW)
+energy_per_test,29940,23.8,nanojoules,power / tests_per_sec
+energy_per_frame,209650,39.9,millijoules,power * frame_time
+cell_count,N/A,41367,cells,OpenLane metrics.csv
+cell_area,N/A,257104,um2,OpenLane metrics.csv
+die_area,N/A,722500,um2,850x850 config
+utilization,N/A,35.6,percent,cell_area / core_area
+setup_slack_typical,N/A,13.70,ns,nom_tt_025C_1v80
+setup_slack_slow,N/A,2.03,ns,max_ss_100C_1v60
+final_clock_period,N/A,25.0,ns,closes all corners
+sequential_cells,N/A,479,cells,flip-flops
+combinational_cells,N/A,27542,cells,logic gates
+hold_violations,N/A,0,count,all corners
+setup_violations,N/A,0,count,all corners
+drc_errors,N/A,0,count,magic DRC
+lvs_errors,N/A,0,count,netgen LVS

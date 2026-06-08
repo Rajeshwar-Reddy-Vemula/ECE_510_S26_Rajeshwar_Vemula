@@ -1,0 +1,339 @@
+ Chronologic VCS (TM)
+       Version X-2025.06-SP1_Full64 -- Mon Jun  8 01:51:34 2026
+
+                    Copyright (c) 1991 - 2025 Synopsys, Inc.
+   This software and the associated documentation are proprietary to Synopsys,
+ Inc. This software may only be used in accordance with the terms and conditions
+ of a written license agreement with Synopsys, Inc. All other use, reproduction,
+   or distribution of this software is strictly prohibited.  Licensed Products
+     communicate with Synopsys servers for the purpose of providing software
+    updates, detecting software piracy and verifying that customers are using
+    Licensed Products in conformity with the applicable License Key for such
+  Licensed Products. Synopsys will use information gathered in connection with
+    this process to deliver software updates and pursue software pirates and
+                                   infringers.
+
+ Inclusivity & Diversity - Visit SolvNetPlus to read the "Synopsys Statement on
+            Inclusivity and Diversity" (Refer to article 000036315 at
+                        https://solvnetplus.synopsys.com)
+
+Parsing design file 'design.sv'
+Parsing design file 'testbench.sv'
+Top Level Modules:
+       tb_top
+TimeScale is 1 ns / 1 ps
+Starting vcs inline pass...
+1 module and 0 UDP read.
+recompiling module tb_top
+rm -f _cuarc*.so _csrc*.so pre_vcsobj_*.so share_vcsobj_*.so
+if [ -x ../simv ]; then chmod a-x ../simv; fi
+g++  -o ../simv      -rdynamic  -Wl,-rpath='$ORIGIN'/simv.daidir -Wl,-rpath=./simv.daidir -Wl,-rpath=/apps/vcsmx/vcs/X-2025.06-SP1/linux64/lib -L/apps/vcsmx/vcs/X-2025.06-SP1/linux64/lib  -Wl,-rpath-link=./   objs/amcQw_d.o  _286_archive_1.so  SIM_l.o       rmapats_mop.o rmapats.o rmar.o rmar_nd.o  rmar_llvm_0_1.o rmar_llvm_0_0.o            -lvirsim -lerrorinf -lsnpsmalloc -lvfs      -lvcsnew -ldistsimclient -lsimprofile -luclinative /apps/vcsmx/vcs/X-2025.06-SP1/linux64/lib/vcs_tls.o   -Wl,-whole-archive  -lvcsucli    -Wl,-no-whole-archive          /apps/vcsmx/vcs/X-2025.06-SP1/linux64/lib/vcs_save_restore_new.o -ldl  -lc -lm -lpthread -ldl 
+../simv up to date
+CPU time: .746 seconds to compile + .499 seconds to elab + .598 seconds to link
+Chronologic VCS simulator copyright 1991-2025
+Contains Synopsys proprietary information.
+Compiler version X-2025.06-SP1_Full64; Runtime version X-2025.06-SP1_Full64;  Jun  8 01:51 2026
+
+[0] Asserting synchronous reset (active-high)...
+[36000] Reset released.
+
+================================================================
+  M3 Co-Simulation  22 Hand-Picked Test Vectors
+  Protocol: AXI4-Lite (config) + AXI4-Stream (ray data)
+  Scene: scene_city.json  3 spheres
+  Reference: Python FP64 intersect_sphere()
+  Tolerance: +/- 3 LSB Q8.8 (0.012 scene units)
+  All values in Q8.8 fixed-point (1 LSB = 1/256)
+================================================================
+
+============================================================
+  Phase 1: Loading ray origin via AXI4-Lite
+============================================================
+  [76000] --- Loading ray origin via AXI4-Lite ---
+  [76000]     origin=(0.0000, 0.3516, -1.0000)
+  [76000] AXI4-Lite WRITE: addr=0x04 data=0x00000000 (RAY_OX)
+  [105000] AXI4-Lite BRESP:  OKAY
+  [120000] AXI4-Lite WRITE: addr=0x08 data=0x0000005a (RAY_OY)
+  [155000] AXI4-Lite BRESP:  OKAY
+  [170000] AXI4-Lite WRITE: addr=0x0c data=0x0000ff00 (RAY_OZ)
+  [205000] AXI4-Lite BRESP:  OKAY
+  [220000] --- Ray origin loaded ---
+
+============================================================
+  Phase 2: Blue sphere  center(0, 0, 1.5) r=0.45
+  Loading sphere params, then testing 6 rays
+============================================================
+  [220000] --- Loading sphere params via AXI4-Lite ---
+  [220000]     center=(0.0000, 0.0000, 1.5000) r=0.4492
+  [220000] AXI4-Lite WRITE: addr=0x1c data=0x00000000 (SPH_CX)
+  [255000] AXI4-Lite BRESP:  OKAY
+  [270000] AXI4-Lite WRITE: addr=0x20 data=0x00000000 (SPH_CY)
+  [305000] AXI4-Lite BRESP:  OKAY
+  [320000] AXI4-Lite WRITE: addr=0x24 data=0x00000180 (SPH_CZ)
+  [355000] AXI4-Lite BRESP:  OKAY
+  [370000] AXI4-Lite WRITE: addr=0x28 data=0x00000073 (SPH_R)
+  [405000] AXI4-Lite BRESP:  OKAY
+  [420000] --- Sphere params loaded ---
+
+  --- TEST 1: direct hit (ray aimed at sphere center) ---
+  [420000] AXI4-Stream TX: sending ray direction D=(0.0000, -0.1367, 0.9922)
+  [420000]     tdata=0x000000feffdd0000  tvalid=1
+  [435000] AXI4-Stream HANDSHAKE: tready=1, ray accepted
+  [440000] COMPUTE: intersection pipeline running...
+  [685000] AXI4-Stream RX: result received after 25 cycles
+  [685000]     tdata=0x0000000000000214  t=0x0214 (2.0781)
+  >> PASS  TEST1  direct hit blue: hit=1 t=0x0214 (2.0781) exp=0x0213 (2.0742)  delta=1 LSB
+
+  --- TEST 2: upper hit (ray aimed above center) ---
+  [695000] AXI4-Stream TX: sending ray direction D=(0.0000, -0.0508, 1.0000)
+  [695000]     tdata=0x00000100fff30000  tvalid=1
+  [705000] AXI4-Stream HANDSHAKE: tready=1, ray accepted
+  [710000] COMPUTE: intersection pipeline running...
+  [955000] AXI4-Stream RX: result received after 25 cycles
+  [955000]     tdata=0x0000000000000221  t=0x0221 (2.1289)
+  >> PASS  TEST2  upper hit blue: hit=1 t=0x0221 (2.1289) exp=0x0220 (2.1250)  delta=1 LSB
+
+  --- TEST 3: right hit (ray aimed right of center) ---
+  [965000] AXI4-Stream TX: sending ray direction D=(0.0547, -0.1367, 0.9883)
+  [965000]     tdata=0x000000fdffdd000e  tvalid=1
+  [975000] AXI4-Stream HANDSHAKE: tready=1, ray accepted
+  [980000] COMPUTE: intersection pipeline running...
+  [1225000] AXI4-Stream RX: result received after 25 cycles
+  [1225000]     tdata=0x0000000000000217  t=0x0217 (2.0898)
+  >> PASS  TEST3  right hit blue: hit=1 t=0x0217 (2.0898) exp=0x0217 (2.0898)  delta=0 LSB
+
+  --- TEST 4: grazing hit (ray near sphere edge) ---
+  [1235000] AXI4-Stream TX: sending ray direction D=(0.1602, -0.1367, 0.9766)
+  [1235000]     tdata=0x000000faffdd0029  tvalid=1
+  [1245000] AXI4-Stream HANDSHAKE: tready=1, ray accepted
+  [1250000] COMPUTE: intersection pipeline running...
+  [1495000] AXI4-Stream RX: result received after 25 cycles
+  [1495000]     tdata=0x000000000000024b  t=0x024b (2.2930)
+  >> PASS  TEST4  grazing blue: hit=1 t=0x024b (2.2930) exp=0x0249 (2.2852)  delta=2 LSB
+
+  --- TEST 5: near miss (ray just outside sphere) ---
+  [1505000] AXI4-Stream TX: sending ray direction D=(0.2578, 0.1250, 0.9570)
+  [1505000]     tdata=0x000000f500200042  tvalid=1
+  [1515000] AXI4-Stream HANDSHAKE: tready=1, ray accepted
+  [1520000] COMPUTE: intersection pipeline running...
+  [1585000] AXI4-Stream RX: result received after 7 cycles
+  [1585000]     tdata=0x0000000000000000  t=0x0000 (0.0000)
+  >> PASS  TEST5  near miss blue: miss (disc<0 or t<=0)
+
+  --- TEST 6: far miss (ray in opposite direction) ---
+  [1595000] AXI4-Stream TX: sending ray direction D=(0.0000, -0.1367, -0.9922)
+  [1595000]     tdata=0x0000ff02ffdd0000  tvalid=1
+  [1605000] AXI4-Stream HANDSHAKE: tready=1, ray accepted
+  [1610000] COMPUTE: intersection pipeline running...
+  [1675000] AXI4-Stream RX: result received after 7 cycles
+  [1675000]     tdata=0x0000000000000000  t=0x0000 (0.0000)
+  >> PASS  TEST6  far miss blue: miss (disc<0 or t<=0)
+
+
+============================================================
+  Phase 3: Orange sphere  center(-2.75, 0.1, 3.5) r=0.6
+  Re-loading sphere params via AXI4-Lite (time-multiplex)
+============================================================
+  [1685000] --- Loading sphere params via AXI4-Lite ---
+  [1685000]     center=(-2.7500, 0.1016, 3.5000) r=0.6016
+  [1685000] AXI4-Lite WRITE: addr=0x1c data=0x0000fd40 (SPH_CX)
+  [1715000] AXI4-Lite BRESP:  OKAY
+  [1730000] AXI4-Lite WRITE: addr=0x20 data=0x0000001a (SPH_CY)
+  [1765000] AXI4-Lite BRESP:  OKAY
+  [1780000] AXI4-Lite WRITE: addr=0x24 data=0x00000380 (SPH_CZ)
+  [1815000] AXI4-Lite BRESP:  OKAY
+  [1830000] AXI4-Lite WRITE: addr=0x28 data=0x0000009a (SPH_R)
+  [1865000] AXI4-Lite BRESP:  OKAY
+  [1880000] --- Sphere params loaded ---
+
+  --- TEST 7: direct hit orange ---
+  [1880000] AXI4-Stream TX: sending ray direction D=(-0.5195, -0.0469, 0.8516)
+  [1880000]     tdata=0x000000dafff4ff7b  tvalid=1
+  [1895000] AXI4-Stream HANDSHAKE: tready=1, ray accepted
+  [1900000] COMPUTE: intersection pipeline running...
+  [2145000] AXI4-Stream RX: result received after 25 cycles
+  [2145000]     tdata=0x00000000000004ac  t=0x04ac (4.6719)
+  >> PASS  TEST7  direct hit orange: hit=1 t=0x04ac (4.6719) exp=0x04ae (4.6797)  delta=-2 LSB
+
+  --- TEST 8: upper hit orange ---
+  [2155000] AXI4-Stream TX: sending ray direction D=(-0.5195, 0.0078, 0.8516)
+  [2155000]     tdata=0x000000da0002ff7b  tvalid=1
+  [2165000] AXI4-Stream HANDSHAKE: tready=1, ray accepted
+  [2170000] COMPUTE: intersection pipeline running...
+  [2415000] AXI4-Stream RX: result received after 25 cycles
+  [2415000]     tdata=0x00000000000004bc  t=0x04bc (4.7344)
+  >> PASS  TEST8  upper hit orange: hit=1 t=0x04bc (4.7344) exp=0x04bc (4.7344)  delta=0 LSB
+
+  --- TEST 9: right hit orange ---
+  [2425000] AXI4-Stream TX: sending ray direction D=(-0.4961, -0.0469, 0.8672)
+  [2425000]     tdata=0x000000defff4ff81  tvalid=1
+  [2435000] AXI4-Stream HANDSHAKE: tready=1, ray accepted
+  [2440000] COMPUTE: intersection pipeline running...
+  [2685000] AXI4-Stream RX: result received after 25 cycles
+  [2685000]     tdata=0x00000000000004b2  t=0x04b2 (4.6953)
+  >> PASS  TEST9  right hit orange: hit=1 t=0x04b2 (4.6953) exp=0x04b3 (4.6992)  delta=-1 LSB
+
+  --- TEST 10: grazing orange ---
+  [2695000] AXI4-Stream TX: sending ray direction D=(-0.4414, -0.0508, 0.8945)
+  [2695000]     tdata=0x000000e5fff3ff8f  tvalid=1
+  [2705000] AXI4-Stream HANDSHAKE: tready=1, ray accepted
+  [2710000] COMPUTE: intersection pipeline running...
+  [2955000] AXI4-Stream RX: result received after 25 cycles
+  [2955000]     tdata=0x00000000000004e2  t=0x04e2 (4.8828)
+  >> PASS  TEST10  grazing orange: hit=1 t=0x04e2 (4.8828) exp=0x04e2 (4.8828)  delta=0 LSB
+
+  --- TEST 11: near miss orange ---
+  [2965000] AXI4-Stream TX: sending ray direction D=(-0.3750, 0.1328, 0.9180)
+  [2965000]     tdata=0x000000eb0022ffa0  tvalid=1
+  [2975000] AXI4-Stream HANDSHAKE: tready=1, ray accepted
+  [2980000] COMPUTE: intersection pipeline running...
+  [3045000] AXI4-Stream RX: result received after 7 cycles
+  [3045000]     tdata=0x0000000000000000  t=0x0000 (0.0000)
+  >> PASS  TEST11  near miss orange: miss (disc<0 or t<=0)
+
+  --- TEST 12: far miss orange ---
+  [3055000] AXI4-Stream TX: sending ray direction D=(0.5195, -0.0859, -0.8516)
+  [3055000]     tdata=0x0000ff26ffea0085  tvalid=1
+  [3065000] AXI4-Stream HANDSHAKE: tready=1, ray accepted
+  [3070000] COMPUTE: intersection pipeline running...
+  [3135000] AXI4-Stream RX: result received after 7 cycles
+  [3135000]     tdata=0x0000000000000000  t=0x0000 (0.0000)
+  >> PASS  TEST12  far miss orange: miss (disc<0 or t<=0)
+
+
+============================================================
+  Phase 4: Red sphere  center(2.0, -0.2, 4.0) r=0.35
+  Re-loading sphere params via AXI4-Lite (time-multiplex)
+============================================================
+  [3145000] --- Loading sphere params via AXI4-Lite ---
+  [3145000]     center=(2.0000, -0.1992, 4.0000) r=0.3516
+  [3145000] AXI4-Lite WRITE: addr=0x1c data=0x00000200 (SPH_CX)
+  [3175000] AXI4-Lite BRESP:  OKAY
+  [3190000] AXI4-Lite WRITE: addr=0x20 data=0x0000ffcd (SPH_CY)
+  [3225000] AXI4-Lite BRESP:  OKAY
+  [3240000] AXI4-Lite WRITE: addr=0x24 data=0x00000400 (SPH_CZ)
+  [3275000] AXI4-Lite BRESP:  OKAY
+  [3290000] AXI4-Lite WRITE: addr=0x28 data=0x0000005a (SPH_R)
+  [3325000] AXI4-Lite BRESP:  OKAY
+  [3340000] --- Sphere params loaded ---
+
+  --- TEST 13: direct hit red ---
+  [3340000] AXI4-Stream TX: sending ray direction D=(0.3711, -0.1016, 0.9219)
+  [3340000]     tdata=0x000000ecffe6005f  tvalid=1
+  [3355000] AXI4-Stream HANDSHAKE: tready=1, ray accepted
+  [3360000] COMPUTE: intersection pipeline running...
+  [3605000] AXI4-Stream RX: result received after 25 cycles
+  [3605000]     tdata=0x000000000000050e  t=0x050e (5.0547)
+  >> PASS  TEST13  direct hit red: hit=1 t=0x050e (5.0547) exp=0x0510 (5.0625)  delta=-2 LSB
+
+  --- TEST 14: upper hit red ---
+  [3615000] AXI4-Stream TX: sending ray direction D=(0.3711, -0.0703, 0.9258)
+  [3615000]     tdata=0x000000edffee005f  tvalid=1
+  [3625000] AXI4-Stream HANDSHAKE: tready=1, ray accepted
+  [3630000] COMPUTE: intersection pipeline running...
+  [3875000] AXI4-Stream RX: result received after 25 cycles
+  [3875000]     tdata=0x000000000000051a  t=0x051a (5.1016)
+  >> PASS  TEST14  upper hit red: hit=1 t=0x051a (5.1016) exp=0x051b (5.1055)  delta=-1 LSB
+
+  --- TEST 15: right hit red ---
+  [3885000] AXI4-Stream TX: sending ray direction D=(0.3867, -0.1016, 0.9180)
+  [3885000]     tdata=0x000000ebffe60063  tvalid=1
+  [3895000] AXI4-Stream HANDSHAKE: tready=1, ray accepted
+  [3900000] COMPUTE: intersection pipeline running...
+  [4145000] AXI4-Stream RX: result received after 25 cycles
+  [4145000]     tdata=0x0000000000000514  t=0x0514 (5.0781)
+  >> PASS  TEST15  right hit red: hit=1 t=0x0514 (5.0781) exp=0x0513 (5.0742)  delta=1 LSB
+
+  --- TEST 16: grazing red ---
+  [4155000] AXI4-Stream TX: sending ray direction D=(0.4180, -0.0977, 0.9023)
+  [4155000]     tdata=0x000000e7ffe7006b  tvalid=1
+  [4165000] AXI4-Stream HANDSHAKE: tready=1, ray accepted
+  [4170000] COMPUTE: intersection pipeline running...
+  [4415000] AXI4-Stream RX: result received after 25 cycles
+  [4415000]     tdata=0x0000000000000533  t=0x0533 (5.1992)
+  >> PASS  TEST16  grazing red: hit=1 t=0x0533 (5.1992) exp=0x0534 (5.2031)  delta=-1 LSB
+
+  --- TEST 17: near miss red ---
+  [4425000] AXI4-Stream TX: sending ray direction D=(0.4492, -0.0039, 0.8945)
+  [4425000]     tdata=0x000000e5ffff0073  tvalid=1
+  [4435000] AXI4-Stream HANDSHAKE: tready=1, ray accepted
+  [4440000] COMPUTE: intersection pipeline running...
+  [4505000] AXI4-Stream RX: result received after 7 cycles
+  [4505000]     tdata=0x0000000000000000  t=0x0000 (0.0000)
+  >> PASS  TEST17  near miss red: miss (disc<0 or t<=0)
+
+  --- TEST 18: far miss red ---
+  [4515000] AXI4-Stream TX: sending ray direction D=(-0.3711, -0.0273, -0.9297)
+  [4515000]     tdata=0x0000ff12fff9ffa1  tvalid=1
+  [4525000] AXI4-Stream HANDSHAKE: tready=1, ray accepted
+  [4530000] COMPUTE: intersection pipeline running...
+  [4595000] AXI4-Stream RX: result received after 7 cycles
+  [4595000]     tdata=0x0000000000000000  t=0x0000 (0.0000)
+  >> PASS  TEST18  far miss red: miss (disc<0 or t<=0)
+
+
+============================================================
+  Phase 5: Edge cases (blue sphere reloaded)
+============================================================
+  [4605000] --- Loading sphere params via AXI4-Lite ---
+  [4605000]     center=(0.0000, 0.0000, 1.5000) r=0.4492
+  [4605000] AXI4-Lite WRITE: addr=0x1c data=0x00000000 (SPH_CX)
+  [4635000] AXI4-Lite BRESP:  OKAY
+  [4650000] AXI4-Lite WRITE: addr=0x20 data=0x00000000 (SPH_CY)
+  [4685000] AXI4-Lite BRESP:  OKAY
+  [4700000] AXI4-Lite WRITE: addr=0x24 data=0x00000180 (SPH_CZ)
+  [4735000] AXI4-Lite BRESP:  OKAY
+  [4750000] AXI4-Lite WRITE: addr=0x28 data=0x00000073 (SPH_R)
+  [4785000] AXI4-Lite BRESP:  OKAY
+  [4800000] --- Sphere params loaded ---
+
+  --- TEST 19: behind camera (ray points backward) ---
+  [4800000] AXI4-Stream TX: sending ray direction D=(0.0000, 0.0000, -1.0000)
+  [4800000]     tdata=0x0000ff0000000000  tvalid=1
+  [4815000] AXI4-Stream HANDSHAKE: tready=1, ray accepted
+  [4820000] COMPUTE: intersection pipeline running...
+  [5065000] AXI4-Stream RX: result received after 25 cycles
+  [5065000]     tdata=0x0000000000000000  t=0x0000 (0.0000)
+  >> PASS  TEST19  behind camera: miss (disc<0 or t<=0)
+
+  --- TEST 20: straight up (ray perpendicular to scene) ---
+  [5075000] AXI4-Stream TX: sending ray direction D=(0.0000, 1.0000, 0.0000)
+  [5075000]     tdata=0x0000000001000000  tvalid=1
+  [5085000] AXI4-Stream HANDSHAKE: tready=1, ray accepted
+  [5090000] COMPUTE: intersection pipeline running...
+  [5155000] AXI4-Stream RX: result received after 7 cycles
+  [5155000]     tdata=0x0000000000000000  t=0x0000 (0.0000)
+  >> PASS  TEST20  straight up: miss (disc<0 or t<=0)
+
+  --- TEST 21: straight ahead (canonical test from M2) ---
+  [5165000] AXI4-Stream TX: sending ray direction D=(0.0000, 0.0000, 1.0000)
+  [5165000]     tdata=0x0000010000000000  tvalid=1
+  [5175000] AXI4-Stream HANDSHAKE: tready=1, ray accepted
+  [5180000] COMPUTE: intersection pipeline running...
+  [5425000] AXI4-Stream RX: result received after 25 cycles
+  [5425000]     tdata=0x0000000000000238  t=0x0238 (2.2188)
+  >> PASS  TEST21  straight ahead blue: hit=1 t=0x0238 (2.2188) exp=0x0238 (2.2188)  delta=0 LSB
+
+  --- TEST 22: 45 degrees right (wide miss) ---
+  [5435000] AXI4-Stream TX: sending ray direction D=(0.7070, 0.0000, 0.7070)
+  [5435000]     tdata=0x000000b5000000b5  tvalid=1
+  [5445000] AXI4-Stream HANDSHAKE: tready=1, ray accepted
+  [5450000] COMPUTE: intersection pipeline running...
+  [5515000] AXI4-Stream RX: result received after 7 cycles
+  [5515000]     tdata=0x0000000000000000  t=0x0000 (0.0000)
+  >> PASS  TEST22  45deg right blue: miss (disc<0 or t<=0)
+
+
+================================================================
+  RESULTS: 22 PASS  0 FAIL  out of 22 tests
+  (13 expected hits, 9 expected misses)
+  Tolerance: +/- 3 LSB Q8.8 = 0.012 scene units
+  Max acceptable error: 0.025 (1 pixel at 400x300)
+  ALL TESTS PASSED
+================================================================
+
+$finish called from file "testbench.sv", line 412.
+$finish at simulation time              5525000
+           V C S   S i m u l a t i o n   R e p o r t 
+Time: 5525000 ps
+CPU Time:      0.480 seconds;       Data structure size:   0.0Mb
